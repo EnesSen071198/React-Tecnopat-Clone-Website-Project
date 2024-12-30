@@ -1,6 +1,6 @@
 /* Container to center and add padding */
 .container {
-  max-width: 2500px;
+  max-width: 2200px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -15,13 +15,16 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  width: 120%;
+  margin-left: -50px;
+  justify-content: start;
 }
 
 /* Individual article box styling */
 .article-box {
   background-color: #f9f9f9;
   width: 30%;
+  height: 250px;
   overflow: hidden;
   position: relative;
   transition: transform 0.3s ease-in-out;
@@ -33,7 +36,7 @@
 
 /* Image as background with dark overlay and text on top */
 .article-image {
-  height: 250px;
+  height: 200px;
   width: 100%;
   background-size: cover;
   background-position: center;
