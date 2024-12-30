@@ -1,36 +1,46 @@
-import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./Article.css";
 
-const Article = ({ data }) => {
-  const { id } = useParams();
-  const article = data[id];
+const Article = () => {
+  const { state } = useLocation();
+  const navigate = useNavigate();
 
-  if (!article) return <div>Article not found</div>;
+  if (!state?.article) {
+    navigate("/");
+    return null;
+  }
+
+  const { article } = state;
 
   return (
-    <div className='article-detail'>
-      <div
-        className='article-image'
-        style={{ backgroundImage: `url(${article.urlToImage})` }}>
-        <div className='overlay'>
-          <h2 className='title'>{article.title}</h2>
-          <div className='author-info'>
+    <div className='article-container'>
+      <div className='article-content'>
+        <img
+          src={article.urlToImage}
+          alt={article.title}
+          className='article-image'
+        />
+        <div className='article-header'>
+          <h1>{article.title}</h1>
+          <div className='article-meta'>
             <span className='author'>{article.author || "Unknown"}</span>
             <span className='date'>
-              {article.publishedAt &&
-                new Date(article.publishedAt).toLocaleDateString()}
+              {new Date(article.publishedAt).toLocaleDateString()}
             </span>
           </div>
         </div>
+
+        <div className='article-body'>
+          <p className='article-description'>{article.description}</p>
+          <div className='article-text'>{article.content}</div>
+        </div>
+
+        <button onClick={() => navigate("/")} className='back-button'>
+          ← Back to Articles
+        </button>
       </div>
-      <p>{article.description}</p>
-      <p>{article.content}</p>
     </div>
   );
-};
-
-Article.propTypes = {
-  data: PropTypes.array.isRequired
 };
 
 export default Article;

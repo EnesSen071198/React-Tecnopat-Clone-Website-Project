@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchData } from "../data/data";
-import "./Home.css"; // Import the CSS file for styles
+import "./Home.css";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
       try {
         const result = await fetchData();
-        setData(result.articles); // Access 'articles' from the response
+        const articlesWithIndex = result.articles.map((article, index) => ({
+          ...article,
+          id: index
+        }));
+        setData(articlesWithIndex);
       } catch (error) {
         setError(error);
       } finally {
@@ -22,16 +28,24 @@ const Home = () => {
     getData();
   }, []);
 
+  const handleArticleClick = (article) => {
+    navigate(`/article/${article.id}`, { state: { article } });
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className='container'>
       <div className='articles'>
-        {/* First two rows with 3 articles each */}
         <div className='row'>
           {data.slice(0, 6).map((item, index) => (
-            <div key={index} className='article-box'>
+            <div
+              key={index}
+              className='article-box'
+              onClick={() => handleArticleClick(item)}
+              role='button'
+              tabIndex={0}>
               <div
                 className='article-image'
                 style={{ backgroundImage: `url(${item.urlToImage})` }}>
@@ -50,9 +64,13 @@ const Home = () => {
           ))}
         </div>
 
-        {/* Starting from the 7th article, display them one by one */}
         {data.slice(6).map((item, index) => (
-          <div key={index} className='single-article'>
+          <div
+            key={index}
+            className='single-article'
+            onClick={() => handleArticleClick(item)}
+            role='button'
+            tabIndex={0}>
             <div
               className='article-image'
               style={{ backgroundImage: `url(${item.urlToImage})` }}>
