@@ -5,6 +5,3 @@ Teknopat sitesinin React kullanılacak yapılan clone sitesidir
 - İçerikler HomeScreen componentine içerikler import edilecek
 - En son içeriklere tıklandığında ilgili içeriğin bilgilerini gösteren component ekranı oluşturulacak
 
-Yapılacaklar
- - Son düzenlemeler yapılacak
- - 
