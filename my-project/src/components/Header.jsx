@@ -6,7 +6,12 @@ const Header = () => {
     <div>
       <header>
         <nav>
-          <img className='logo' src={logo} alt='logo' />
+          <img
+            className='logo'
+            src={logo}
+            alt='logo'
+            style={{ cursor: "pointer" }}
+          />
           <ul>
             <li>
               <NavLink to='/'>Ana Sayfa</NavLink>
