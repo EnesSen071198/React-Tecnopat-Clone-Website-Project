@@ -36,7 +36,7 @@ const Article = () => {
         </div>
 
         <button onClick={() => navigate("/")} className='back-button'>
-          ← Back to Articles
+          ← Ana Sayfaya Dön
         </button>
       </div>
     </div>
